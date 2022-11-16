@@ -48,11 +48,10 @@ int hsh(info_t *info, char **av)
  * @info: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
- * 			0 if builtin executed successfully,
- * 			1 if builtin found but not successful,
- * 			-2 if builtin signals exit()
+ *			0 if builtin executed successfully,
+ *			1 if builtin found but not successful,
+ *			-2 if builtin signals exit()
  */
-
 int find_builtin(info_t *info)
 {
 	int i, built_in_ret = -1;
@@ -62,7 +61,7 @@ int find_builtin(info_t *info)
 		{"help", _myhelp},
 		{"history", _myhistory},
 		{"setenv", _mysetenv},
-		{"setenv", _mysetenv},
+		{"unsetenv", _myunsetenv},
 		{"cd", _mycd},
 		{"alias", _myalias},
 		{NULL, NULL}
@@ -82,13 +81,12 @@ int find_builtin(info_t *info)
  * find_cmd - finds a command in PATH
  * @info: the parameter & return info struct
  *
- *
+ * Return: void
  */
-
 void find_cmd(info_t *info)
 {
 	char *path = NULL;
-
+	int i, k;
 
 	info->path = info->argv[0];
 	if (info->linecount_flag == 1)
@@ -111,7 +109,7 @@ void find_cmd(info_t *info)
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=")
-					|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
+			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
 			fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
@@ -127,7 +125,6 @@ void find_cmd(info_t *info)
  *
  * Return: void
  */
-
 void fork_cmd(info_t *info)
 {
 	pid_t child_pid;
@@ -161,4 +158,3 @@ void fork_cmd(info_t *info)
 		}
 	}
 }
-

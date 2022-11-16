@@ -54,7 +54,6 @@ char **strtow(char *str, char *d)
  * @d: the delimeter
  * Return: a pointer to an array of strings, or NULL on failure
  */
-
 char **strtow2(char *str, char d)
 {
 	int i, j, k, m, numwords = 0;
@@ -64,7 +63,7 @@ char **strtow2(char *str, char d)
 		return (NULL);
 	for (i = 0; str[i] != '\0'; i++)
 		if ((str[i] != d && str[i + 1] == d) ||
-				(str[i] != d && !str[i + 1]) || str[i + 1] == d)
+		    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
 			numwords++;
 	if (numwords == 0)
 		return (NULL);
@@ -90,6 +89,6 @@ char **strtow2(char *str, char d)
 			s[j][m] = str[i++];
 		s[j][m] = 0;
 	}
-
+	s[j] = NULL;
 	return (s);
 }
